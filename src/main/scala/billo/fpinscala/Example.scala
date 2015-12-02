@@ -21,8 +21,9 @@ object Example {
     }*/
 
     val l = newList(1, 2, 3, 87, 465)
+    val l2 = newList(87, 44, 75, "dfg")
 
-    println(newList.length(l))
+    println(newList.flatten(newList(l, l2)))
   }
 
   def winner(p1: Player, p2: Player): Player =

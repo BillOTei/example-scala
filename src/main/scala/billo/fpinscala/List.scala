@@ -21,6 +21,24 @@ object List {
     case Cons(h, t) => f(h, foldRight(t, z)(f))
   }
 
+  @annotation.tailrec
+  def foldLeft[A, B](l: List[A], z: B)(f: (B, A) => B): B = l match {
+    case Nil => z
+    case Cons(h, t) => foldLeft(t, f(z, h))(f)
+  }
+
+  def sumFoldLeft(ints: List[Int]): Int = foldLeft(ints, 0)(_ + _)
+
+  def prodFoldLeft(ints: List[Double]): Double = foldLeft(ints, 1.0)(_ * _)
+
+  def lengthFoldLeft[A](l: List[A]): Int = foldLeft(l, 0)((acc, _) => acc + 1)
+
+  def reverse[A](l: List[A]): List[A] = foldLeft(l, List[A]())((rl, h) => Cons(h, rl))
+
+  def append[A](l: List[A], x: List[A]): List[A] = foldRight(l, x)(Cons(_, _))
+
+  def flatten[A](l: List[List[A]]): List[A] = foldRight(l, List[A]())(append)
+
   def tail[A](l: List[A]): List[A] = l match {
     case Nil => sys.error("tail of empty list")
     case Cons(_, t) => t
