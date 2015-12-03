@@ -20,10 +20,12 @@ object Example {
       case _ => 101
     }*/
 
-    val l = newList(1, 2, 3, 87, 465)
+    val l = newList(1.0, 2.54, 3.0, 87.987, 465.0)
     val l2 = newList(87, 44, 75, "dfg")
+    val l4 = newList(1, 2, 3, 54)
+    val l3 = newList(40, 50, 60)
 
-    println(newList.flatten(newList(l, l2)))
+    println(newList.addIntLists(l4, l3))
   }
 
   def winner(p1: Player, p2: Player): Player =

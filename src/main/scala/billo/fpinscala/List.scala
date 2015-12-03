@@ -39,6 +39,32 @@ object List {
 
   def flatten[A](l: List[List[A]]): List[A] = foldRight(l, List[A]())(append)
 
+  def add1(l: List[Int]): List[Int] = reverse(foldLeft(l, List[Int]())((acc, h) => Cons(h + 1, acc)))
+
+  def add1Bis(l: List[Int]): List[Int] = foldRight(l, List[Int]())((h, acc) => Cons(h + 1, acc))
+
+  def doubleToString(l: List[Double]) = foldRight(l, Nil:List[String])((h, acc) => Cons(h.toString, acc))
+
+  def map[A, B](l: List[A])(f: A => B): List[B] = foldRight(l, Nil:List[B])((h, acc) => Cons(f(h), acc))
+
+  def filter[A](l: List[A])(f: A => Boolean): List[A] = foldRight(l, Nil:List[A])((h, acc) => if (f(h)) Cons(h, acc) else acc)
+
+  def flatMap[A, B](l: List[A])(f: A => List[B]): List[B] = foldRight(l, Nil:List[B])((h, acc) => append(f(h), acc))
+
+  def filterFromFlatMap[A](l: List[A])(f: A => Boolean): List[A] = flatMap(l)(h => if (f(h)) List(h) else Nil)
+
+  def addIntLists(l: List[Int], m: List[Int]): List[Int] = (l, m) match {
+    case (Nil, _) => Nil
+    case (_, Nil) => Nil
+    case (Cons(h1, t1), Cons(h2, t2)) => Cons(h1 + h2, addIntLists(t1, t2))
+  }
+
+  def zipWith[A, B](l: List[A], m: List[A])(f: (A, A) => B): List[B] = (l, m) match {
+    case (Nil, _) => Nil
+    case (_, Nil) => Nil
+    case (Cons(h1, t1), Cons(h2, t2)) => Cons(f(h1, h2), zipWith(t1, t2)(f))
+  }
+
   def tail[A](l: List[A]): List[A] = l match {
     case Nil => sys.error("tail of empty list")
     case Cons(_, t) => t
