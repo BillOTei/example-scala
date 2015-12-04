@@ -53,6 +53,29 @@ object List {
 
   def filterFromFlatMap[A](l: List[A])(f: A => Boolean): List[A] = flatMap(l)(h => if (f(h)) List(h) else Nil)
 
+  def hasSubsequence[A, B](l: List[A], sub: List[A]): Int = foldLeft(containsValues(l, sub), -1)(condSum)
+
+  def condSum(acc: Int, a: Int) = if (acc <= 0) a else if (acc > 0 && a != 0) acc + a else if (acc > 0 && a == 0) 0 else acc
+
+  def startsWith[A, B](l: List[A], sub: List[A]): Boolean = l match {
+    case (_, Nil) => true
+    case (Cons(h1, t1), Cons(h2, t2)) if h1 == h2 => startsWith(t1, t2)
+    case _ => false
+  }
+
+  /** Solution ex 24 */
+  @annotation.tailrec
+  def hasSubsequenceSolution[A](sup: List[A], sub: List[A]): Boolean = sup match {
+    case Nil => sub == Nil
+    case _ if startsWith(sup, sub) => true
+    case Cons(h,t) => hasSubsequenceSolution(t, sub)
+  }
+
+  def containsValues[A, B](l: List[A], sub: List[A]): List[Int] = l match {
+    case Nil => Nil
+    case Cons(h, t) => Cons(foldLeft(sub, 0)((z, h2) => if (z == 0 && h2 == h) 1 else z), containsValues(t, sub))
+  }
+
   def addIntLists(l: List[Int], m: List[Int]): List[Int] = (l, m) match {
     case (Nil, _) => Nil
     case (_, Nil) => Nil

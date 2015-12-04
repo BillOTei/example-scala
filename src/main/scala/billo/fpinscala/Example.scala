@@ -22,10 +22,10 @@ object Example {
 
     val l = newList(1.0, 2.54, 3.0, 87.987, 465.0)
     val l2 = newList(87, 44, 75, "dfg")
-    val l4 = newList(1, 2, 3, 54)
-    val l3 = newList(40, 50, 60)
+    val l4 = newList(2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67, 71, 73, 79, 83, 89, 97)
+    val l3 = newList(13, 17)
 
-    println(newList.addIntLists(l4, l3))
+    println(newList.hasSubsequence(l4, l3))
   }
 
   def winner(p1: Player, p2: Player): Player =
