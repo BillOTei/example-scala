@@ -57,7 +57,7 @@ object List {
 
   def condSum(acc: Int, a: Int) = if (acc <= 0) a else if (acc > 0 && a != 0) acc + a else if (acc > 0 && a == 0) 0 else acc
 
-  def startsWith[A, B](l: List[A], sub: List[A]): Boolean = l match {
+  /*def startsWith[A, B](l: List[A], sub: List[A]): Boolean = l match {
     case (_, Nil) => true
     case (Cons(h1, t1), Cons(h2, t2)) if h1 == h2 => startsWith(t1, t2)
     case _ => false
@@ -69,7 +69,7 @@ object List {
     case Nil => sub == Nil
     case _ if startsWith(sup, sub) => true
     case Cons(h,t) => hasSubsequenceSolution(t, sub)
-  }
+  }*/
 
   def containsValues[A, B](l: List[A], sub: List[A]): List[Int] = l match {
     case Nil => Nil
